@@ -11,6 +11,23 @@ let itemList = [];
 let editObj; // 수정해야할 객체 담은 변수
 
 // ****** EVENT LISTENERS **********
+window.addEventListener('DOMContentLoaded', () => {
+  const storageItemList = JSON.parse(localStorage.getItem('itemList'));
+
+  if (!storageItemList) return;
+
+  storageItemList.forEach((storageItem) => {
+    // 엘리먼트 생성 후 화면에 추가
+    const itemEl = createItemEl(storageItem);
+    groceryListEl.appendChild(itemEl);
+
+    // 리스트 컨테이너 보이게 하기
+    groceyContainerEl.style.visibility = 'visible';
+  });
+
+  itemList = storageItemList;
+});
+
 formEl.addEventListener('submit', submitHandler);
 clearBtn.addEventListener('click', clearClickHandler);
 
@@ -76,6 +93,9 @@ function delClickHandler(e) {
   );
   delItemEl.remove();
 
+  // 스토리지에 저장
+  setStorage(itemList);
+
   // 리스트에 아무것도 없으면 clear item 모양 안보이도록 하기
   if (itemList.length === 0) {
     groceyContainerEl.style.visibility = 'hidden';
@@ -89,6 +109,9 @@ function clearClickHandler() {
   editObj = null;
   groceryListEl.innerHTML = '';
   groceyContainerEl.style.visibility = 'hidden';
+
+  // 스토리지에 저장
+  setStorage(itemList);
 
   alert('alert-danger', 'empty list');
 }
@@ -104,6 +127,9 @@ function addItem(value) {
   };
   itemList.push(item);
 
+  // 스토리지에 저장
+  setStorage(itemList);
+
   // 엘리먼트 생성 후 화면에 추가
   const itemEl = createItemEl(item);
   groceryListEl.appendChild(itemEl);
@@ -114,17 +140,12 @@ function addItem(value) {
 
 function editItem(id, value) {
   // 배열 객체 수정
-  // 수정해야할 객체의 value 값을 변경하고 반환
-  // 수정해야할 객체가 아니라면 원래 값 반환
-  // itemList = itemList.map((item) =>
-  //   item.id === id ? { id: item.id, value } : item
-  // );
   editObj.value = value;
 
+  // 스토리지에 저장
+  setStorage(itemList);
+
   // 화면 다시 출력
-  // 두 개 중 뭐가 나을까?
-  // 1. 쿼리 셀렉터로 가져오기
-  // 2. item 엘리먼트 리스트 가져오고 그 중에서 dataset.id 일치하는 것 가져오기
   const editItemEl = groceryListEl.querySelector(
     `.grocery-item[data-id="${id}"]`
   );
@@ -180,5 +201,6 @@ function createItemEl(item) {
 }
 
 // ****** LOCAL STORAGE **********
-
-// ****** SETUP ITEMS **********
+function setStorage(itemList) {
+  localStorage.setItem('itemList', JSON.stringify(itemList));
+}
