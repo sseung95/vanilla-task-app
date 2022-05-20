@@ -1,10 +1,10 @@
 # vanillaJS_my_task-app
 
-스탑워치의 기능을 구현합니다.
+할일 목록 노트 앱의 기능을 구현합니다.
 
 이 프로젝트는 아래의 프로젝트를 참고하여 작성했습니다.
 
-> https://mikkegoes.com/javascript-projects-for-beginners/
+> https://www.freecodecamp.org/news/javascript-projects-for-beginners/
 
 <br>
 
@@ -14,9 +14,9 @@ PS. 팀원들끼리 각자 개발 후 코드 리뷰 및 회고 진행
 
 # 구현된 모습
 
-⏰ 프로젝트 링크 ↓
+📝 프로젝트 링크 ↓
 
-> https://seung-stopwatch.netlify.app/
+> https://seung-task-app.netlify.app/
 
 <br>
 
